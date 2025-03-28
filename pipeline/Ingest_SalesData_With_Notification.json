@@ -1,0 +1,89 @@
+{
+	"name": "Ingest_SalesData_With_Notification",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_SalesData",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "NotifySlack",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Copy_SalesData",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://hooks.slack.com/services/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",
+					"body": {
+						"text": "ADF pipeline successfully copied SalesData to ADLS Gen2."
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-03-28T00:58:54Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

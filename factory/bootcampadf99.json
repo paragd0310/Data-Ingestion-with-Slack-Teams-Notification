@@ -1,0 +1,9 @@
+{
+	"name": "bootcampadf99",
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "25963916-0d46-4688-9bcc-a08ed99fbd31",
+		"tenantId": "d60583db-97e3-4d42-a5cd-c0cc36206120"
+	}
+}
