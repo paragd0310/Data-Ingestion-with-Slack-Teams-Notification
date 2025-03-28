@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "bootcampadf99"
+		},
+		"AzureSqlLS_password": {
+			"value": ""
+		},
+		"AzureStorageLS_accountKey": {
+			"value": ""
+		},
+		"AzureSqlLS_properties_typeProperties_server": {
+			"value": "bootcampdb99.database.windows.net"
+		},
+		"AzureSqlLS_properties_typeProperties_database": {
+			"value": "bootcampdb9999"
+		},
+		"AzureSqlLS_properties_typeProperties_userName": {
+			"value": "sqladmin"
+		},
+		"AzureStorageLS_properties_typeProperties_url": {
+			"value": "https://bootcampdatalake99.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
